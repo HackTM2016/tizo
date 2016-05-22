@@ -4,12 +4,13 @@
 #include "utils.h"
 #include "parser.h"
 #include "box.h"
+#include "pi.h"
 
 #ifdef OPENCV
 #include "opencv2/highgui/highgui_c.h"
 #endif
 
-char *voc_names[] = {"aeroplane", "bicycle", "bird", "boat", "bottle", "bus", "car", "cat", "chair", "cow", "diningtable", "dog", "horse", "motorbike", "person", "pottedplant", "sheep", "sofa", "train", "tvmonitor"};
+char *voc_names[] = {"empty", "bicycle", "bird", "boat", "bottle", "bus", "car", "cat", "chair", "cow", "diningtable", "dog", "horse", "motorbike", "person", "pottedplant", "sheep", "sofa", "train", "tvmonitor"};
 image voc_labels[20];
 
 void train_yolo(char *cfgfile, char *weightfile)
@@ -364,6 +365,7 @@ void demo_yolo(char *cfgfile, char *weightfile, float thresh, int cam_index, cha
 
 void run_yolo(int argc, char **argv)
 {
+    send_http("red");
     int i;
     for(i = 0; i < 20; ++i){
         char buff[256];

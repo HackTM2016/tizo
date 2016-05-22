@@ -105,12 +105,17 @@ void draw_bbox(image a, box bbox, int w, float r, float g, float b)
 void draw_detections(image im, int num, float thresh, box *boxes, float **probs, char **names, image *labels, int classes)
 {
     int i;
+    int car_count = 0;
 
     for(i = 0; i < num; ++i){
         int class = max_index(probs[i], classes);
         float prob = probs[i][class];
+
         if(prob > thresh){
-            send_http("green");
+            car_count += 1;
+            if (class == 0) send_http("red"); /*empty*/
+            if (class == 6) send_http("green"); /*car*/
+            printf("Car count: %d\n", car_count);
             int width = pow(prob, 1./2.)*10+1;
             width = 8;
             printf("%s: %.2f\n", names[class], prob);
