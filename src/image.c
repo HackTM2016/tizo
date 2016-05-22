@@ -1,6 +1,7 @@
 #include "image.h"
 #include "utils.h"
 #include "blas.h"
+#include "pi.h"
 #include <stdio.h>
 #include <math.h>
 
@@ -109,6 +110,7 @@ void draw_detections(image im, int num, float thresh, box *boxes, float **probs,
         int class = max_index(probs[i], classes);
         float prob = probs[i][class];
         if(prob > thresh){
+            send_http("red");
             int width = pow(prob, 1./2.)*10+1;
             width = 8;
             printf("%s: %.2f\n", names[class], prob);

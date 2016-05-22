@@ -8,7 +8,7 @@
 
 static void error(const char *msg) { perror(msg); exit(0); }
 
-int send_http(int count, char *params[])
+int send_http(char *color)
 {
   int portno =        80;
   char *host =        "172.16.2.79";
@@ -19,10 +19,9 @@ int send_http(int count, char *params[])
   int sockfd, bytes, sent, received, total;
   char message[1024],response[4096];
 
-  if (count < 2) { puts("Parameters: <color>"); exit(0); }
 
   /* fill in the parameters */
-  sprintf(message,message_fmt, params[1]);
+  sprintf(message,message_fmt, color);
   printf("Request:\n%s\n",message);
 
   /* create the socket */
@@ -55,7 +54,7 @@ int send_http(int count, char *params[])
     sent+=bytes;
   } while (sent < total);
 
-  /* receive the response */
+/* we don't need no stinkin response 
   memset(response,0,sizeof(response));
   total = sizeof(response)-1;
   received = 0;
@@ -67,6 +66,7 @@ int send_http(int count, char *params[])
       break;
     received+=bytes;
   } while (received < total);
+*/
 
   if (received == total)
     error("ERROR storing complete response from socket");
