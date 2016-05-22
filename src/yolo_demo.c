@@ -28,6 +28,8 @@ static CvCapture * cap;
 static float fps = 0;
 static float demo_thresh = 0;
 
+int car_count = 0;
+
 void *fetch_in_thread(void *ptr)
 {
     in = get_image_from_stream(cap);
@@ -49,7 +51,9 @@ void *detect_in_thread(void *ptr)
     printf("\033[1;1H");
     printf("\nFPS:%.0f\n",fps);
     printf("Objects:\n\n");
+    car_count = 0;
     draw_detections(det, l.side*l.side*l.n, demo_thresh, boxes, probs, voc_names, voc_labels, 20);
+    printf("\nCAR COUNT:%d\n", car_count);
     return 0;
 }
 
