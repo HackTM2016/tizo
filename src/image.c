@@ -110,7 +110,7 @@ void draw_detections(image im, int num, float thresh, box *boxes, float **probs,
         int class = max_index(probs[i], classes);
         float prob = probs[i][class];
         if(prob > thresh){
-            send_http("red");
+            send_http("green");
             int width = pow(prob, 1./2.)*10+1;
             width = 8;
             printf("%s: %.2f\n", names[class], prob);
